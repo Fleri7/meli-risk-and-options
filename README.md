@@ -10,7 +10,7 @@ MELI reports in US dollars, but in 2025 52.6% of its revenue was in Brazilian re
 
 - **H1. Exposure in proportion to value.** MELI's stock moves with the Brazilian real and the Mexican peso roughly in proportion to each country's share of MELI's value, as measured by the country DCF.
 - **H2. Argentina is priced at the market rate.** MELI's exposure to Argentina shows up against the CCL (market) exchange rate, not the official rate.
-- **H3. Options price the currency risk.** The premium of MELI's implied volatility over Amazon's is at least as large as the currency-driven part of MELI's forecast volatility. A smaller premium means options under-price Latin American currency risk; a larger one means investors pay for more than currency risk.
+- **H3. Options price the currency risk.** MELI's options charge at least as much per unit of risk as those of comparable US companies. The price of risk is implied variance divided by GARCH-forecast variance, compared with a peer group that mirrors MELI's two businesses: commerce (Amazon, eBay, Etsy, Shopify) and fintech (PayPal), weighted by MELI's commerce and fintech revenue split. A lower ratio for MELI means its options under-price the extra risk it carries, which is mainly Latin American currency risk.
 
 ## Repository layout
 
