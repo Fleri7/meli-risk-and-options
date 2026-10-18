@@ -8,9 +8,9 @@ MELI reports in US dollars, but in 2025 52.6% of its revenue was in Brazilian re
 
 ## Hypotheses
 
-- **H1.** Brazilian real moves explain more of MELI's returns than Argentine peso moves, after controlling for the Nasdaq.
-- **H2.** Options overprice earnings-day moves on average (panel of 20 stocks reporting Oct to Nov 2026, MELI as the case study).
-- **H3.** MELI's implied volatility sits above its GARCH volatility, most of all on downside strikes.
+- **H1. Exposure in proportion to value.** MELI's stock moves with the Brazilian real and the Mexican peso roughly in proportion to each country's share of MELI's value, as measured by the country DCF.
+- **H2. Argentina is priced at the market rate.** MELI's exposure to Argentina shows up against the CCL (market) exchange rate, not the official rate.
+- **H3. Options price the currency risk.** The premium of MELI's implied volatility over Amazon's is at least as large as the currency-driven part of MELI's forecast volatility. A smaller premium means options under-price Latin American currency risk; a larger one means investors pay for more than currency risk.
 
 ## Repository layout
 
