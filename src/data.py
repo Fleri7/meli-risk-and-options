@@ -20,10 +20,13 @@ TICKERS = [
     "NU", "STNE", "PAGS", "SE", "AMZN",
     "BRL=X", "MXN=X", "ARS=X",
     "GGAL", "GGAL.BA", "YPF", "YPFD.BA", "PAM", "PAMP.BA", "BMA", "BMA.BA",
+    "EMB", "IEF", "DBC", "^BVSP", "^MXX", "^MERV",
+    "EBAY", "ETSY", "SHOP", "PYPL",
 ]
 
 FRED_SERIES = [
     "DGS10", "DGS1MO", "SOFR", "VIXCLS", "VXNCLS", "VXAZNCLS", "DEXBZUS", "DEXMXUS",
+    "IRSTCI01BRM156N", "IRSTCI01MXM156N",
 ]
 
 

@@ -8,9 +8,12 @@ MELI reports in US dollars, but in 2025 52.6% of its revenue was in Brazilian re
 
 ## Hypotheses
 
-- **H1. Exposure in proportion to value.** MELI's stock moves with the Brazilian real and the Mexican peso roughly in proportion to each country's share of MELI's value, as measured by the country DCF.
-- **H2. Argentina is priced at the market rate.** MELI's exposure to Argentina shows up against the CCL (market) exchange rate, not the official rate.
-- **H3. Options price the currency risk.** MELI's options charge at least as much per unit of risk as those of comparable US companies. The price of risk is implied variance divided by GARCH-forecast variance, compared with a peer group that mirrors MELI's two businesses: commerce (Amazon, eBay, Etsy, Shopify) and fintech (PayPal), weighted by MELI's commerce and fintech revenue split. A lower ratio for MELI means its options under-price the extra risk it carries, which is mainly Latin American currency risk.
+- **H1. Latin American shocks drive MELI's risk.** Currencies, sovereign risk, local interest rates and inflation, local equity markets and commodity prices together explain more of MELI's return variance than US rates and volatility, once global tech moves (the Nasdaq) are controlled for.
+- **H2. Currency exposure in proportion to value.** MELI's stock moves with the Brazilian real and the Mexican peso in line with each country's share of MELI's value, within the range the country DCF gives once price pass-through and the currency mix of costs and debt are allowed for.
+- **H3. Argentina is priced at the market rate.** MELI's exposure to Argentina shows up against the CCL (market) exchange rate rather than the official rate, survives a control for the Argentine stock market, and is largest when capital controls bind.
+- **H4. Options price MELI's extra risk.** After removing earnings effects, MELI's options charge at least as much per unit of risk (implied over GARCH-forecast variance) as those of comparable US companies: commerce (Amazon, eBay, Etsy, Shopify) and fintech (PayPal), weighted by MELI's revenue split. A lower price of risk means the extra risk MELI carries, mostly Latin American, is under-priced.
+
+Currency returns are measured as the change in the US-dollar value of the local currency, so a positive beta means MELI gains when the local currency strengthens.
 
 ## Repository layout
 
@@ -42,6 +45,7 @@ python3 -m venv .venv
 | Data | Source |
 |---|---|
 | Stock, ETF and FX prices | Yahoo Finance via yfinance |
-| US yields, SOFR, VIX, VXN, VXAZN | FRED, Federal Reserve Bank of St. Louis |
+| EM sovereign spread proxy (EMB, IEF), commodities (DBC), Bovespa, IPC, Merval | Yahoo Finance via yfinance |
+| US yields, SOFR, VIX, VXN, VXAZN, Brazil and Mexico interbank rates | FRED, Federal Reserve Bank of St. Louis |
 | Revenue by country | MercadoLibre FY2025 10-K, SEC EDGAR |
 | Option chains | Yahoo Finance via yfinance, daily snapshots from Oct 16, 2026 |
