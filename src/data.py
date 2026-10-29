@@ -6,7 +6,9 @@ API call never changes a result after the fact.
 
 import io
 import sys
+from datetime import datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 import requests
@@ -20,7 +22,7 @@ TICKERS = [
     "NU", "STNE", "PAGS", "SE", "AMZN",
     "BRL=X", "MXN=X", "ARS=X",
     "GGAL", "GGAL.BA", "YPF", "YPFD.BA", "PAM", "PAMP.BA", "BMA", "BMA.BA",
-    "EMB", "IEF", "DBC", "^BVSP", "^MXX", "^MERV",
+    "EMB", "IEF", "DBC", "^BVSP", "^MXX", "^MERV", "ARGT",
     "EBAY", "ETSY", "SHOP", "PYPL",
 ]
 
@@ -35,8 +37,10 @@ def file_name(ticker):
 
 
 def download_prices():
+    # end is exclusive, so today's unfinished session is never cached as a close
+    today = datetime.now(ZoneInfo("America/New_York")).date().isoformat()
     for t in TICKERS:
-        df = yf.Ticker(t).history(start=START, auto_adjust=False)
+        df = yf.Ticker(t).history(start=START, end=today, auto_adjust=False)
         if df.empty:
             print(f"{t}: no data", file=sys.stderr)
             continue
