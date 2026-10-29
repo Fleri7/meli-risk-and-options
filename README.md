@@ -21,6 +21,8 @@ Currency returns are measured as the change in the US-dollar value of the local 
 data/
   prices/        cached daily prices and FRED series (src/data.py)
   options/       <TICKER>_YYYY-MM-DD.csv, one option-chain snapshot per ticker per trading day
+docs/
+  MELI Risk and Options - Paper Plan.docx   paper plan: hypotheses, methods, data, timeline
 excel/
   meli_dcf.xlsx  country DCF, FX scenarios, options cross-check
 src/
