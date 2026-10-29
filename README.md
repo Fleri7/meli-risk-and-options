@@ -25,7 +25,7 @@ excel/
   meli_dcf.xlsx  country DCF, FX scenarios, options cross-check
 src/
   data.py               download and cache prices and FRED series
-  snapshot_options.py   daily option-chain snapshot (run by launchd, weekdays 3:30pm ET)
+  snapshot_options.py   daily option-chain snapshot (run by launchd, weekdays 3:30pm ET, retries at 3:45 and 3:55 fill any failed tickers)
 notebooks/              one notebook per step (added as the analysis is built)
 figures/
 ```
