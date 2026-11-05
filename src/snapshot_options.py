@@ -70,7 +70,7 @@ def snapshot_ticker(ticker, now):
         time.sleep(0.5)
 
     df = pd.concat(frames, ignore_index=True)
-    df.insert(0, "snapshot_time", now.isoformat(timespec="seconds"))
+    df.insert(0, "snapshot_time", datetime.now(NY).isoformat(timespec="seconds"))
     df.insert(1, "spot", spot)
     df["mid"] = (df["bid"] + df["ask"]) / 2
     df = df.rename(columns={"impliedVolatility": "yf_iv"})

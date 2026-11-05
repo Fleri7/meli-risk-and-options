@@ -1,6 +1,6 @@
-# MercadoLibre: currency risk and option pricing
+# Mercado Libre: currency risk and option pricing
 
-**Question.** How exposed is MercadoLibre (MELI) to Latin American currency and macro shocks, and do its options price that risk fairly?
+**Question.** How exposed is Mercado Libre (MELI) to Latin American currency and macro shocks, and do its options price that risk fairly?
 
 MELI reports in US dollars, but in 2025 52.6% of its revenue was in Brazilian reais, 22.4% in Mexican pesos and 20.6% in Argentine pesos (FY2025 10-K). The gap between the reporting currency and the operating currencies is the core of the analysis.
 
@@ -21,12 +21,14 @@ Currency returns are measured as the change in the US-dollar value of the local 
 data/
   prices/        cached daily prices and FRED series (src/data.py)
   options/       <TICKER>_YYYY-MM-DD.csv, one option-chain snapshot per ticker per trading day
+  options_recovered/  Nov 3 peer chains from DoltHub, kept apart from the snapshots
+  earnings_dates.csv  8-K Item 2.02 dates for MELI and peers (src/data.py)
 docs/
   MELI Risk and Options - Paper Plan.docx   paper plan: hypotheses, methods, data, timeline
 excel/
   meli_dcf.xlsx  country DCF, FX scenarios, options cross-check
 src/
-  data.py               download and cache prices and FRED series
+  data.py               download and cache prices, FRED and BCRA series, and EDGAR earnings dates
   snapshot_options.py   daily option-chain snapshot (run by launchd, weekdays 3:30pm ET, retries at 3:45 and 3:55 fill any failed tickers)
 notebooks/              one notebook per step (added as the analysis is built)
 figures/
@@ -49,5 +51,8 @@ python3 -m venv .venv
 | Stock, ETF and FX prices | Yahoo Finance via yfinance |
 | EM sovereign spread proxy (EMB, IEF), commodities (DBC), Bovespa, IPC, Merval | Yahoo Finance via yfinance |
 | US yields, SOFR, VIX, VXN, VXAZN, Brazil and Mexico interbank rates | FRED, Federal Reserve Bank of St. Louis |
-| Revenue by country | MercadoLibre FY2025 10-K, SEC EDGAR |
+| Revenue by country, debt, FX sensitivity | Mercado Libre FY2025 10-K, 10-Qs and 8-Ks, SEC EDGAR |
+| Earnings dates, MELI and peers | 8-K Item 2.02 filings, SEC EDGAR |
+| Official peso rate | BCRA API (Com. A 3500), from 2010 |
 | Option chains | Yahoo Finance via yfinance, daily snapshots from Oct 16, 2026 |
+| Recovered option chains | DoltHub post-no-preference/options (Nov 3, 2026: AMZN, EBAY, ETSY, PYPL) |
