@@ -24,6 +24,7 @@ TICKERS = [
     "GGAL", "GGAL.BA", "YPF", "YPFD.BA", "PAM", "PAMP.BA", "BMA", "BMA.BA",
     "EMB", "IEF", "DBC", "^BVSP", "^MXX", "^MERV", "ARGT",
     "EBAY", "ETSY", "SHOP", "PYPL",
+    "MGLU3.SA", "BHIA3.SA", "FALABELLA.SN", "CLP=X", "INTR", "DLO",
 ]
 
 EARNINGS_CIKS = {

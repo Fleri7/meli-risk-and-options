@@ -20,7 +20,7 @@ import yfinance as yf
 
 PANEL = [
     "AMX", "BBD", "PYPL", "EBAY", "ETSY", "YPF", "AMZN", "VALE", "SHOP", "ITUB",
-    "CPNG", "SE", "PBR", "NU", "STNE", "PAGS", "XP", "GGAL", "BABA",
+    "CPNG", "SE", "PBR", "NU", "STNE", "PAGS", "XP", "GGAL", "BABA", "INTR", "DLO",
 ]
 TICKERS = ["MELI"] + PANEL
 PANEL_MAX_DAYS = 75
