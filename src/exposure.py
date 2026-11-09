@@ -13,8 +13,6 @@ import statsmodels.api as sm
 PRICES = Path(__file__).resolve().parents[1] / "data" / "prices"
 OUT = Path(__file__).resolve().parents[1] / "data" / "results"
 
-# YPF's ADS ratio is 1, but Yahoo's YPFD.BA series sits a constant 10x below it, so it is scaled here
-ADR_RATIOS = {"GGAL": ("GGAL.BA", 10), "YPF": ("YPFD.BA", 10), "PAM": ("PAMP.BA", 25), "BMA": ("BMA.BA", 10)}
 PRIMARY_START = "2021-11-01"  # five years, matching the equity beta window and today's business mix
 FULL_START = "2015-01-01"
 FACTORS = ["BRL", "MXN", "ARS_CCL"]
@@ -22,28 +20,26 @@ LAGS = {"D": 5, "W": 4, "M": 3}
 
 # US$-listed names, and locally listed names converted to US$ at the local rate
 PEERS_USD = ["NU", "STNE", "PAGS", "INTR", "DLO", "SE", "AMZN", "EBAY", "ETSY", "SHOP", "PYPL"]
-PEERS_LOCAL = {"MGLU3.SA": "BRL=X", "BHIA3.SA": "BRL=X", "FALABELLA.SN": "CLP=X"}
+PEERS_LOCAL = ["MGLU3", "BHIA3"]
 
 
 def close(ticker, column="Adj Close"):
-    name = ticker.replace("=", "_").replace("^", "")
-    return pd.read_csv(PRICES / f"{name}.csv", index_col=0, parse_dates=True)[column].rename(ticker)
+    return pd.read_csv(PRICES / f"{ticker}.csv", index_col=0, parse_dates=True)[column].rename(ticker)
 
 
-def ccl():
-    rates = [close(local, "Close") * ratio / close(adr, "Close") for adr, (local, ratio) in ADR_RATIOS.items()]
-    return pd.concat(rates, axis=1).dropna(thresh=3).median(axis=1).rename("CCL")
+def series(name):
+    return pd.read_csv(PRICES / f"{name}.csv", index_col=0, parse_dates=True).iloc[:, 0].dropna().rename(name)
 
 
 def levels():
     px = pd.DataFrame({
         "MELI": close("MELI"), "QQQ": close("QQQ"), "SPY": close("SPY"), "EEM": close("EEM"),
-        "BRL": 1 / close("BRL=X"), "MXN": 1 / close("MXN=X"), "ARS_CCL": 1 / ccl(), "ARS_OFF": 1 / close("ARS=X"),
+        "BRL": 1 / series("PTAX"), "MXN": 1 / series("DEXMXUS"), "ARS_CCL": 1 / series("CCL"), "ARS_OFF": 1 / series("BCRA_USD"),
     })
     for t in PEERS_USD:
         px[t] = close(t)
-    for t, fx in PEERS_LOCAL.items():
-        px[t] = close(t) / close(fx).reindex(close(t).index).ffill()
+    for t in PEERS_LOCAL:
+        px[t] = series(t) / series("PTAX").reindex(series(t).index).ffill()
     return px.sort_index().ffill(limit=3)
 
 

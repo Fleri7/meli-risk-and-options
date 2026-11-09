@@ -23,7 +23,7 @@ data/
   options/       <TICKER>_YYYY-MM-DD.csv, one option-chain snapshot per ticker per trading day
   options_recovered/  Nov 3 peer chains from DoltHub, kept apart from the snapshots
   earnings_dates.csv  8-K Item 2.02 dates for MELI and peers (src/data.py)
-  results/       H2 betas and rolling betas (src/exposure.py)
+  results/       H1, H2 and H3 estimates (src/exposure.py, src/factors.py)
 docs/
   MELI Risk and Options - Paper Plan.docx   paper plan: hypotheses, methods, data, timeline
 excel/
@@ -31,6 +31,7 @@ excel/
 src/
   data.py               download and cache prices, FRED and BCRA series, and EDGAR earnings dates
   exposure.py           H2 currency betas for MELI and peers
+  factors.py            H1 regional and country factors, H3 official vs CCL
   snapshot_options.py   daily option-chain snapshot (run by launchd, weekdays 3:30pm ET, retries at 3:45 and 3:55 fill any failed tickers)
 notebooks/              one notebook per step (added as the analysis is built)
 figures/
@@ -48,14 +49,21 @@ python3 -m venv .venv
 
 ## Data
 
+Yahoo Finance is not a source for this project. Prices come from exchanges and rates from central banks. The only Yahoo data kept is the option snapshots saved through Nov 4, 2026, which no other free source holds.
+
 | Data | Source |
 |---|---|
-| Stock, ETF and FX prices | Yahoo Finance via yfinance |
-| Local peers (Magazine Luiza, Casas Bahia, Falabella) | Yahoo Finance via yfinance, converted to US$ |
-| EM sovereign spread proxy (EMB, IEF), commodities (DBC), Bovespa, IPC, Merval | Yahoo Finance via yfinance |
+| US-listed stocks and ETFs | Cboe daily closes, dividends from Nasdaq |
+| Brazilian real | Banco Central do Brasil, PTAX selling rate |
+| Mexican peso | Federal Reserve H.10 via FRED, about a week late |
+| Argentine CCL | Ámbito published series, from 2013; no official body publishes this rate |
+| Bovespa, Magazine Luiza, Casas Bahia | B3 (index history, COTAHIST files), peers converted to US$ at PTAX |
+| Mexican equities | EWW converted to pesos; no free official IPC history |
+| Argentine equities | Average of GGAL, YPF, PAM, BMA in US$; the official Merval series has gaps and ends in April 2024 |
 | US yields, SOFR, VIX, VXN, VXAZN, Brazil and Mexico interbank rates | FRED, Federal Reserve Bank of St. Louis |
 | Revenue by country, debt, FX sensitivity | Mercado Libre FY2025 10-K, 10-Qs and 8-Ks, SEC EDGAR |
 | Earnings dates, MELI and peers | 8-K Item 2.02 filings, SEC EDGAR |
 | Official peso rate | BCRA API (Com. A 3500), from 2010 |
-| Option chains | Yahoo Finance via yfinance, daily snapshots from Oct 16, 2026 |
+| Inflation | IBGE, INDEC, FRED (OECD; Mexico ends July 2024) |
+| Option chains | Nasdaq, daily snapshots from Nov 5, 2026; Oct 16 to Nov 4 archived from Yahoo |
 | Recovered option chains | DoltHub post-no-preference/options (Nov 3, 2026: AMZN, EBAY, ETSY, PYPL) |
