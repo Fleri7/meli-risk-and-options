@@ -1,6 +1,6 @@
 # Mercado Libre: currency risk and option pricing
 
-**Question.** How exposed is Mercado Libre (MELI) to Latin American currency and macro shocks, and do its options price that risk fairly?
+**Question.** How exposed is Mercado Libre (MELI) to Latin American currency and macro shocks, and do its stock price and options price that risk?
 
 MELI reports in US dollars, but in 2025 52.6% of its revenue was in Brazilian reais, 22.4% in Mexican pesos and 20.6% in Argentine pesos (FY2025 10-K). The gap between the reporting currency and the operating currencies is the core of the analysis.
 
@@ -23,13 +23,14 @@ data/
   options/       <TICKER>_YYYY-MM-DD.csv, one option-chain snapshot per ticker per trading day
   options_recovered/  Nov 3 peer chains from DoltHub, kept apart from the snapshots
   earnings_dates.csv  8-K Item 2.02 dates for MELI and peers (src/data.py)
-  results/       H1, H2 and H3 estimates (src/exposure.py, src/factors.py)
+  results/       H1, H2 and H3 estimates and equity betas (src/exposure.py, src/factors.py, src/betas.py)
 docs/
   MELI Risk and Options - Paper Plan.docx   paper plan: hypotheses, methods, data, timeline
 excel/
-  meli_dcf.xlsx  country DCF, FX scenarios, options cross-check
+  meli_dcf.xlsx  valuation (historicals, WACC, DCF, multiples, sensitivity) plus country DCF, FX scenarios, options cross-check
 src/
   data.py               download and cache prices, FRED and BCRA series, and EDGAR earnings dates
+  betas.py              equity betas vs the S&P 500 for the WACC
   exposure.py           H2 currency betas for MELI and peers
   factors.py            H1 regional and country factors, H3 official vs CCL
   snapshot_options.py   daily option-chain snapshot (run by launchd, weekdays 3:30pm ET, retries at 3:45 and 3:55 fill any failed tickers)
