@@ -1,42 +1,60 @@
-# Mercado Libre: currency risk and option pricing
+# Mercado Libre: Pricing Latin American Risk in the Stock and Its Options
+
+*Independent research project by Fernando Leri. In progress (November 2026).*
 
 **Question.** How exposed is Mercado Libre (MELI) to Latin American currency and macro shocks, and do its stock price and options price that risk?
 
-MELI reports in US dollars, but in 2025 52.6% of its revenue was in Brazilian reais, 22.4% in Mexican pesos and 20.6% in Argentine pesos (FY2025 10-K). The gap between the reporting currency and the operating currencies is the core of the analysis.
+MELI reports in US dollars and trades on the Nasdaq, but in 2025 52.6% of its revenue was in Brazilian reais, 22.4% in Mexican pesos and 20.6% in Argentine pesos (FY2025 10-K). The project measures how much of that risk shows up in the stock, in its valuation and in its options.
 
-**Finding.** _To be written once the analysis is complete._
+## Approach
+
+1. **Equity exposure.** Weekly regressions of MELI's returns on a regional Latin American factor, country-specific shocks and the Nasdaq, with Newey-West errors and a block bootstrap (H1); currency betas against the exposure the valuation implies (H2); Argentina's official vs parallel (CCL) exchange rate (H3).
+2. **Valuation.** A DCF for 2026E to 2036E built from the filings, valuing commerce and the Mercado Pago loan book together; a WACC with the beta checked against peers and the cost of debt from Fitch default data; peer multiples; sensitivity grids and break-evens showing how much country risk today's price assumes.
+3. **Options.** A daily snapshot of option chains on MELI and 21 peers since October 2026, testing whether MELI's options charge as much per unit of risk as those of US peers (H4).
+
+## Status
+
+| Part | Status |
+|---|---|
+| H1, regional vs country shocks | First estimate: inconclusive |
+| H2, currency exposure vs value | First estimate: inconclusive; rerun with the Q3 2026 10-Q |
+| H3, Argentina at the market rate | First estimate: rejected |
+| Valuation | Model built; recommendation waits for H2 and H3 |
+| H4, options | Collecting data; test from December 2026 |
+
+Early valuation result, still being tested: with the full Damodaran country risk premium the DCF gives about $860 a share against a $1,740 price. The price is consistent with a WACC of about 10.3%, which leaves room for very little Latin American country premium.
 
 ## Hypotheses
 
-- **H1. Regional shocks matter more than single-country shocks.** MELI's stock reacts strongly to shocks that hit Latin America as a whole, but much less to shocks confined to one country, because operating in several countries diversifies them away. Tested by splitting the Latin American factors (currencies, sovereign spread, local equity, commodities) into a common regional component and country-specific shocks, with the Nasdaq as a global control.
-- **H2. Currency exposure in proportion to value.** MELI's stock moves with the Brazilian real and the Mexican peso in line with each country's share of MELI's value, within the range the country DCF gives once price pass-through and the currency mix of costs and debt are allowed for.
-- **H3. Argentina is priced at the market rate.** MELI's exposure to Argentina shows up against the CCL (market) exchange rate rather than the official rate, survives a control for the Argentine stock market, and is largest when capital controls bind.
-- **H4. Options price MELI's extra risk.** After removing earnings effects, MELI's options charge at least as much per unit of risk (implied over GARCH-forecast variance) as those of comparable US companies: commerce (Amazon, eBay, Etsy, Shopify) and fintech (PayPal), weighted by MELI's revenue split. A lower price of risk means the extra risk MELI carries, mostly Latin American, is under-priced. A second benchmark of US-listed Latin American fintechs (Nubank, PagSeguro, StoneCo, XP, Inter&Co, dLocal) shows whether MELI is priced like a Latin American company.
+- **H1. Regional shocks matter more than single-country shocks.** Operating in several countries should diversify away shocks confined to one of them, but not shocks that hit the region as a whole.
+- **H2. Currency exposure in proportion to value.** MELI's stock moves with the real and the peso within the range the country DCF gives once price pass-through and the currency mix of costs and debt are allowed for.
+- **H3. Argentina is priced at the market rate.** Exposure shows up against the CCL rather than the official rate, survives a control for Argentine equities, and is largest when capital controls bind.
+- **H4. Options price MELI's extra risk.** After removing earnings effects, MELI's options charge at least as much per unit of risk (implied over GARCH-forecast variance) as a revenue-weighted basket of US commerce and payments peers.
 
-Currency returns are measured as the change in the US-dollar value of the local currency, so a positive beta means MELI gains when the local currency strengthens.
+Currency returns are the change in the US-dollar value of the local currency, so a positive beta means MELI gains when the local currency strengthens.
 
-## Repository layout
+## Repository
 
 ```
 data/
-  prices/        cached daily prices and FRED series (src/data.py)
-  options/       <TICKER>_YYYY-MM-DD.csv, one option-chain snapshot per ticker per trading day
-  options_recovered/  Nov 3 peer chains from DoltHub, kept apart from the snapshots
-  earnings_dates.csv  8-K Item 2.02 dates for MELI and peers (src/data.py)
-  results/       H1, H2 and H3 estimates and equity betas (src/exposure.py, src/factors.py, src/betas.py)
+  prices/             cached daily prices, exchange rates and FRED series (src/data.py)
+  options/            one option-chain snapshot per ticker per trading day
+  options_recovered/  Nov 3, 2026 peer chains from DoltHub, kept apart from the snapshots
+  earnings_dates.csv  8-K Item 2.02 dates for MELI and peers
+  results/            H1, H2 and H3 estimates and equity betas
 docs/
-  MELI Risk and Options - Paper Plan.docx   paper plan: hypotheses, methods, data, timeline
+  MELI Risk and Options - Paper Plan.docx   paper plan: sections, methods, data, timeline
 excel/
-  meli_dcf.xlsx  valuation (historicals, WACC, DCF, multiples, sensitivity) plus country DCF, FX scenarios, options cross-check
+  meli_dcf.xlsx       historicals, WACC, DCF, multiples, sensitivity and break-evens; country DCF, FX scenarios, options cross-check
 src/
-  data.py               download and cache prices, FRED and BCRA series, and EDGAR earnings dates
-  betas.py              equity betas vs the S&P 500 for the WACC
+  data.py               downloads and caches prices, exchange rates and EDGAR earnings dates
+  factors.py            H1 regional and country factors; H3 official vs CCL
   exposure.py           H2 currency betas for MELI and peers
-  factors.py            H1 regional and country factors, H3 official vs CCL
-  snapshot_options.py   daily option-chain snapshot (run by launchd, weekdays 3:30pm ET, retries at 3:45 and 3:55 fill any failed tickers)
-notebooks/              one notebook per step (added as the analysis is built)
-figures/
+  betas.py              equity betas vs the S&P 500 for the WACC
+  snapshot_options.py   daily option-chain snapshot, run each weekday at 3:30pm ET
 ```
+
+Notebooks and figures will be added as each part is written up.
 
 ## How to run
 
@@ -46,25 +64,23 @@ python3 -m venv .venv
 .venv/bin/python src/data.py
 ```
 
-`src/data.py` caches every series to `data/prices/` so the notebooks run offline. Option chains cannot be downloaded after the fact, so `data/options/` only grows through the daily snapshot job.
+`src/data.py` caches every series to `data/prices/`, so the analysis scripts run offline. Option chains cannot be downloaded after the fact, so `data/options/` only grows through the daily snapshot job.
 
 ## Data
 
-Yahoo Finance is not a source for this project. Prices come from exchanges and rates from central banks. The only Yahoo data kept is the option snapshots saved through Nov 4, 2026, which no other free source holds.
+Official and exchange sources only. Yahoo Finance is not used; the one exception is option snapshots from Oct 16 to Nov 4, 2026, archived before the switch to Nasdaq. Licensed Fitch reports used for the cost of debt are cited but not included.
 
 | Data | Source |
 |---|---|
-| US-listed stocks and ETFs | Cboe daily closes, dividends from Nasdaq |
-| Brazilian real | Banco Central do Brasil, PTAX selling rate |
-| Mexican peso | Federal Reserve H.10 via FRED, about a week late |
-| Argentine CCL | Ámbito published series, from 2013; no official body publishes this rate |
-| Bovespa, Magazine Luiza, Casas Bahia | B3 (index history, COTAHIST files), peers converted to US$ at PTAX |
-| Mexican equities | EWW converted to pesos; no free official IPC history |
-| Argentine equities | Average of GGAL, YPF, PAM, BMA in US$; the official Merval series has gaps and ends in April 2024 |
-| US yields, SOFR, VIX, VXN, VXAZN, Brazil and Mexico interbank rates | FRED, Federal Reserve Bank of St. Louis |
-| Revenue by country, debt, FX sensitivity | Mercado Libre FY2025 10-K, 10-Qs and 8-Ks, SEC EDGAR |
-| Earnings dates, MELI and peers | 8-K Item 2.02 filings, SEC EDGAR |
-| Official peso rate | BCRA API (Com. A 3500), from 2010 |
-| Inflation | IBGE, INDEC, FRED (OECD; Mexico ends July 2024) |
-| Option chains | Nasdaq, daily snapshots from Nov 5, 2026; Oct 16 to Nov 4 archived from Yahoo |
-| Recovered option chains | DoltHub post-no-preference/options (Nov 3, 2026: AMZN, EBAY, ETSY, PYPL) |
+| US-listed stocks and ETFs | Cboe daily closes; dividends from Nasdaq |
+| Brazilian real | Banco Central do Brasil, PTAX |
+| Mexican peso | Federal Reserve H.10 via FRED |
+| Argentine peso | BCRA (official rate); Ámbito (CCL, since no official body publishes it) |
+| Brazilian equities | B3 (Ibovespa, COTAHIST quotes for Magazine Luiza and Casas Bahia) |
+| Mexican and Argentine equities | EWW in pesos; average of GGAL, YPF, PAM and BMA in US$ |
+| Rates and volatility indices | FRED (US yields, SOFR, VIX, VXN, VXAZN, Brazil and Mexico interbank rates) |
+| Inflation | IBGE, INDEC, FRED (OECD) |
+| MELI and peer financials | 10-K, 10-Q and 20-F filings, SEC EDGAR |
+| Earnings dates | 8-K Item 2.02 filings, SEC EDGAR |
+| Cost of capital | Damodaran (ERP and country risk premiums); ICE BofA BBB EM corporate yield via FRED; Fitch rating action (Oct 8, 2026) and default study (1990-2025) |
+| Option chains | Nasdaq daily snapshots from Nov 5, 2026; archived Yahoo snapshots Oct 16 to Nov 4; DoltHub for Nov 3 peer chains |
