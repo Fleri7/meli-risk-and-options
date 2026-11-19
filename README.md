@@ -9,7 +9,7 @@ MELI reports in US dollars and trades on the Nasdaq, but in 2025 52.6% of its re
 ## Approach
 
 1. **Equity exposure.** Weekly regressions of MELI's returns on a regional Latin American factor, country-specific shocks and the Nasdaq, with Newey-West errors and a block bootstrap (H1); currency betas against the exposure the valuation implies (H2); Argentina's official vs parallel (CCL) exchange rate (H3).
-2. **Valuation.** A DCF for 2026E to 2036E built from the filings, valuing commerce and the Mercado Pago loan book together; a WACC with the beta checked against peers and the cost of debt from Fitch default data; peer multiples; sensitivity grids and break-evens showing how much country risk today's price assumes.
+2. **Valuation.** A sum of the parts for 2026E to 2036E built from the filings: commerce and payments on free cash flow at country WACCs, the Mercado Pago credit business on flow to equity like a bank, and a consolidated DCF as a check; a WACC with the beta checked against peers and the cost of debt from Fitch default data; peer multiples; sensitivity grids and break-evens showing how much country risk today's price assumes.
 3. **Options.** A daily snapshot of option chains on MELI and 21 peers since October 2026, testing whether MELI's options charge as much per unit of risk as those of US peers (H4).
 
 ## Status
@@ -19,10 +19,10 @@ MELI reports in US dollars and trades on the Nasdaq, but in 2025 52.6% of its re
 | H1, regional vs country shocks | First estimate: inconclusive |
 | H2, currency exposure vs value | First estimate: inconclusive; rerun with the Q3 2026 10-Q |
 | H3, Argentina at the market rate | First estimate: rejected |
-| Valuation | Model built; recommendation waits for H2 and H3 |
+| Valuation | Sum of the parts and consolidated DCF built; sensitivity on the sum of the parts to come |
 | H4, options | Collecting data; test from December 2026 |
 
-Early valuation result, still being tested: with the full Damodaran country risk premium the DCF gives about $860 a share against a $1,740 price. The price is consistent with a WACC of about 10.3%, which leaves room for very little Latin American country premium.
+Early valuation result, still being tested: with the full Damodaran country risk premium, the sum of the parts (commerce on free cash flow, credit on flow to equity) gives about $1,990 a share and the consolidated DCF about $1,349, against a $1,740 price. The answer turns mainly on whether commerce margins recover after 2026.
 
 ## Hypotheses
 
