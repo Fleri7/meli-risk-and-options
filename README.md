@@ -19,10 +19,11 @@ MELI reports in US dollars and trades on the Nasdaq, but in 2025 52.6% of its re
 | H1, regional vs country shocks | First estimate: inconclusive |
 | H2, currency exposure vs value | First estimate: inconclusive; rerun with the Q3 2026 10-Q |
 | H3, Argentina at the market rate | First estimate: rejected |
-| Valuation | Sum of the parts and consolidated DCF built, with sensitivity grids, tornado and break-evens; stress scenarios to come |
+| Valuation | Sum of the parts and consolidated DCF built, with sensitivity grids, tornado and break-evens |
+| Stress scenarios | Five scenarios sized from Brazil 2015-16, Argentina 2018-19 and 2020 built on the sum of the parts; factor-model losses and VaR to come |
 | H4, options | Collecting data; test from December 2026 |
 
-Early valuation result, still being tested: with the full Damodaran country risk premium, the sum of the parts (commerce on free cash flow, credit on flow to equity) gives about $1,990 a share and the consolidated DCF about $1,349, against a $1,740 price. The answer turns mainly on whether commerce margins recover after 2026.
+Early valuation result, still being tested: with the full Damodaran country risk premium, the sum of the parts (commerce on free cash flow, credit on flow to equity) gives about $1,990 a share and the consolidated DCF about $1,349, against a $1,740 price. The answer turns mainly on whether commerce margins recover after 2026. Under stress the sum of the parts falls 13% to 29% in scenarios sized from Brazil 2015-16, Argentina 2018-19 and 2020, less than MELI's stock fell in each of those episodes (38% to 43%), and 47% when they are combined.
 
 ## Hypotheses
 
@@ -45,7 +46,7 @@ data/
 docs/
   MELI Risk and Options - Paper Plan.docx   paper plan: sections, methods, data, timeline
 excel/
-  meli_dcf.xlsx       historicals, WACC, DCF, multiples, sensitivity and break-evens; country DCF, FX scenarios, options cross-check
+  meli_dcf.xlsx       historicals, WACC, DCF, sum of the parts, multiples, sensitivity, break-evens and stress scenarios; country DCF, FX scenarios, options cross-check
 src/
   data.py               downloads and caches prices, exchange rates and EDGAR earnings dates
   factors.py            H1 regional and country factors; H3 official vs CCL
@@ -79,8 +80,9 @@ Official and exchange sources only. Yahoo Finance is not used; the one exception
 | Brazilian equities | B3 (Ibovespa, COTAHIST quotes for Magazine Luiza and Casas Bahia) |
 | Mexican and Argentine equities | EWW in pesos; average of GGAL, YPF, PAM and BMA in US$ |
 | Rates and volatility indices | FRED (US yields, SOFR, VIX, VXN, VXAZN, Brazil and Mexico interbank rates) |
+| Brazilian credit delinquency | Banco Central do Brasil, SGS series 21129 |
 | Inflation | IBGE, INDEC, FRED (OECD) |
 | MELI and peer financials | 10-K, 10-Q and 20-F filings, SEC EDGAR |
 | Earnings dates | 8-K Item 2.02 filings, SEC EDGAR |
-| Cost of capital | Damodaran (ERP and country risk premiums); ICE BofA BBB EM corporate yield via FRED; Fitch rating action (Oct 8, 2026) and default study (1990-2025) |
+| Cost of capital | Damodaran (ERP and country risk premiums, January archives 2015-2024 for stress); ICE BofA BBB EM corporate yield via FRED; Fitch rating action (Oct 8, 2026) and default study (1990-2025) |
 | Option chains | Nasdaq daily snapshots from Nov 5, 2026; archived Yahoo snapshots Oct 16 to Nov 4; DoltHub for Nov 3 peer chains |
