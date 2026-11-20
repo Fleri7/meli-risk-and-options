@@ -19,7 +19,7 @@ MELI reports in US dollars and trades on the Nasdaq, but in 2025 52.6% of its re
 | H1, regional vs country shocks | First estimate: inconclusive |
 | H2, currency exposure vs value | First estimate: inconclusive; rerun with the Q3 2026 10-Q |
 | H3, Argentina at the market rate | First estimate: rejected |
-| Valuation | Sum of the parts and consolidated DCF built; sensitivity on the sum of the parts to come |
+| Valuation | Sum of the parts and consolidated DCF built, with sensitivity grids, tornado and break-evens; stress scenarios to come |
 | H4, options | Collecting data; test from December 2026 |
 
 Early valuation result, still being tested: with the full Damodaran country risk premium, the sum of the parts (commerce on free cash flow, credit on flow to equity) gives about $1,990 a share and the consolidated DCF about $1,349, against a $1,740 price. The answer turns mainly on whether commerce margins recover after 2026.
