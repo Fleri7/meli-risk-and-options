@@ -23,7 +23,7 @@ MELI reports in US dollars and trades on the Nasdaq, but in 2025 52.6% of its re
 | Stress scenarios | Five scenarios sized from Brazil 2015-16, Argentina 2018-19 and 2020 built on the sum of the parts; factor-model losses and VaR to come |
 | H4, options | Collecting data; test from December 2026 |
 
-Early valuation result, still being tested: with the full Damodaran country risk premium, the sum of the parts (commerce on free cash flow, credit on flow to equity) gives about $1,990 a share and the consolidated DCF about $1,349, against a $1,740 price. The answer turns mainly on whether commerce margins recover after 2026. Under stress the sum of the parts falls 13% to 29% in scenarios sized from Brazil 2015-16, Argentina 2018-19 and 2020, less than MELI's stock fell in each of those episodes (38% to 43%), and 47% when they are combined.
+Early valuation result, still being tested: with the full Damodaran country risk premium, the sum of the parts (commerce on free cash flow, credit on flow to equity) gives about $1,960 a share and the consolidated DCF about $1,332, against a $1,740 price. The answer turns mainly on whether commerce margins, which fell from 9.1% in 2025 to 4.4% in 2026 after MELI widened free shipping in Brazil, return to the 2025 level; the model holds them flat through 2027 and recovers them by 2030, in line with Fitch's 2026-27 margin outlook. Under stress the sum of the parts falls 12% to 29% in scenarios sized from Brazil 2015-16, Argentina 2018-19 and 2020, less than MELI's stock fell in each of those episodes (38% to 43%), and 47% when they are combined.
 
 ## Hypotheses
 
