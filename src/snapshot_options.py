@@ -11,6 +11,7 @@ need are always saved.
 """
 
 import re
+import socket
 import sys
 import time
 from datetime import date, datetime
@@ -97,12 +98,28 @@ def snapshot_ticker(ticker, now):
     time.sleep(1)
 
 
+def wait_for_network(host="api.nasdaq.com", limit=300, step=10):
+    """After a wake from sleep, DNS can take minutes to come back; every ticker failed on Nov 20 without this."""
+    start = time.monotonic()
+    while True:
+        try:
+            socket.getaddrinfo(host, 443)
+            return
+        except OSError as e:
+            if time.monotonic() - start > limit:
+                print(f"network still down after {limit}s: {e}", file=sys.stderr)
+                return
+            time.sleep(step)
+
+
 def snapshot():
     now = datetime.now(NY)
     if now.weekday() >= 5:
         print("weekend, skipping")
         return
+    print(f"run at {now:%Y-%m-%d %H:%M:%S %Z}")
     OUT_DIR.mkdir(parents=True, exist_ok=True)
+    wait_for_network()
 
     failed = []
     for ticker in TICKERS:
@@ -111,6 +128,15 @@ def snapshot():
         except Exception as e:
             print(f"{ticker} failed: {e}", file=sys.stderr)
             failed.append(ticker)
+    if failed:
+        wait_for_network()
+        retried, failed = failed, []
+        for ticker in retried:
+            try:
+                snapshot_ticker(ticker, now)
+            except Exception as e:
+                print(f"{ticker} failed again: {e}", file=sys.stderr)
+                failed.append(ticker)
     if failed:
         print(f"failed: {', '.join(failed)}", file=sys.stderr)
         sys.exit(1)
